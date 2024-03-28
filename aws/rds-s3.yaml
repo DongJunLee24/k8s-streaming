@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: streaming-app
-        image: koreapower98/aws1:test
+        image: koreapower98/progress:test
         resources:
           limits: 
             cpu: "1"
@@ -45,6 +45,21 @@ spec:
               secretKeyRef:
                 name: rds-secret
                 key: database
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: s3-secret
+                key: access
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: s3-secret
+                key: secret
+          - name: AWS_REGION
+            valueFrom:
+              secretKeyRef:
+                name: s3-secret
+                key: region
         volumeMounts:
         - name: s3-bucket
           mountPath: /mnt/s3bucket
